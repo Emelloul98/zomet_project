@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "my_project2",
-    "slug": "my_project2",
+    "name": "zomet project",
+    "slug": "zomet_project",
+    "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,6 +32,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "47f9464c-747e-4771-b23a-a98f523b7635"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/47f9464c-747e-4771-b23a-a98f523b7635"
     }
   }
 }
