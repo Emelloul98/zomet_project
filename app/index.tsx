@@ -1,31 +1,31 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Platform, View } from 'react-native';
+import LoginFormik from '@/components/Login';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const App = () => {
+
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome to Zomet app!</Text>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <LoginFormik />
+      </View>
+    </SafeAreaView>
   );
-};
+}
+
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 10,
+    // paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
-  welcomeText: {
-    fontSize: 24,
-    color: '#333',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  container: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
   },
+ 
 });
 
-export default App;
+
