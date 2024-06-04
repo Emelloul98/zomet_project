@@ -1,31 +1,19 @@
-import { Image, StyleSheet, Platform, View } from 'react-native';
-import LoginFormik from '@/components/Login';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from "react";
+import Navigator from "../routes/LoginAndHomeStack";
+import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 
-
-export default function HomeScreen() {
+export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <LoginFormik />
-      </View>
-    </SafeAreaView>
+        <Navigator />
+    </SafeAreaView> 
   );
 }
-
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     // paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
-  container: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-  },
- 
 });
-
 

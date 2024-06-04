@@ -1,8 +1,15 @@
 import { StyleSheet } from 'react-native'
 
-export const globalS = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
+    homeMainView: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
     container: {
-        padding: 40
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
     },
     titleText: {
         fontFamily: "sevillana",
