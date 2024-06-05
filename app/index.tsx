@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
-        <Navigator />
+      <Navigator />
     </SafeAreaView> 
   );
 }

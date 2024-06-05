@@ -1,39 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { normalize, normalizeHeight } from '../styles/globalJS';
 
-const { width, height } = Dimensions.get('window');
-
-const baseWidth = 320;  
-const baseHeight = 680; 
-
-const scaleWidth = width / baseWidth;
-const scaleHeight = height / baseHeight;
-const scale = Math.min(scaleWidth, scaleHeight); // Use the smaller scale to ensure content fits within the screen
-
-function normalize(size:any) {
-  const newSize = size * scale;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize));
+type navProps = {
+  nav: any;
+  settingsOrSched: string;
+  iconeType: string;
+  styleType: string;
 }
+export default function Header(props: navProps) {
 
-function normalizeHeight(size:any) {
-  const newSize = size * scaleHeight;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize));
-}
-
-export default function Header() {
-
-  const moveToSettings = () => {
-    // props.navigation.replace('Settings');
+  const moveToSettingsOrSched = () => {
+    props.nav.replace(props.settingsOrSched);
   }
+
 
   return (
     <View style={styles.header}>
         <View style={styles.header_icons}>
           <View style={styles.left_icons}>
             <Ionicons name="wifi-outline" style={styles.wifi_icon} />
-            <TouchableOpacity onPress={moveToSettings}>
-              <Ionicons name="settings-outline" style={styles.settings_icon} onPress={moveToSettings}/>
+            <TouchableOpacity onPress={moveToSettingsOrSched}>
+              {props.settingsOrSched === 'Settings' ? 
+              <Ionicons name="settings-outline" style={styles.settings_icon} /> : 
+              <Ionicons name="calendar" style={styles.settings_icon} /> 
+              }
             </TouchableOpacity>
           </View>
           <Image 
@@ -61,20 +53,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    marginTop:'5%',
+    
   },
   application_title: {
     fontFamily: 'Arial',
     textAlign: 'center',
     color: '#231dd3',
-    fontSize: normalize(30),
+    fontSize: normalize(27),
     marginLeft:'5%', 
   },
   zomet_logo: {
     justifyContent: 'flex-end',
     marginRight: normalize(10),
     width: normalize(80), 
-    height: normalizeHeight(100), 
+    height: normalizeHeight(70), 
   },
   wifi_icon: {
     marginLeft: normalize(20),
@@ -82,10 +74,12 @@ const styles = StyleSheet.create({
     fontSize: normalize(20),
     marginTop: normalizeHeight(25),
   },
+
   settings_icon: {
     marginLeft: normalize(20),
     color: '#231dd3',
     fontSize: normalize(20),
     marginTop: normalizeHeight(25),
   },
+ 
 });

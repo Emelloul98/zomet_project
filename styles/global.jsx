@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet,Dimensions, PixelRatio } from 'react-native'
 
 export const globalStyles = StyleSheet.create({
     homeMainView: {
@@ -11,16 +11,10 @@ export const globalStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    titleText: {
-        fontFamily: "sevillana",
-        fontSize: 18,
-        color: "#333"
+    bodyContainer: {
+        flex: 5,
     },
-
-    paragraph: {
-        marginVertical: 8,
-        lineHeight: 20,
-    },
+ 
     input: {
         borderWidth: 1,
         borderColor: "#ddd",
@@ -36,6 +30,18 @@ export const globalStyles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 6,
         textAlign: "center"
-    }
+    },
+
+    zomet_text: {
+        color:'#231dd3',
+        alignSelf:'flex-end',
+        marginRight:'2%',
+        marginTop:'2%',
+        fontWeight:'bold'
+    },
+    
 
 })
+
+
+
