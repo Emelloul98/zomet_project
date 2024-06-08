@@ -1,6 +1,6 @@
 import React from "react";
 import Navigator from "../routes/LoginAndHomeStack";
-import { SafeAreaView, StyleSheet, View, Text } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text,StatusBar } from "react-native";
 
 export default function App() {
   return (
@@ -13,7 +13,6 @@ export default function App() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    // paddingTop: Platform.OS === 'android' ? 25 : 0,
-  },
+    paddingTop: StatusBar.currentHeight,  },
 });
 

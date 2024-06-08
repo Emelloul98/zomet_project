@@ -1,6 +1,6 @@
 import {Dimensions, PixelRatio } from 'react-native'
 
-const { width, height } = Dimensions.get('window');
+export const { width, height } = Dimensions.get('window');
 const baseWidth = 320;  
 const baseHeight = 680; 
 const scaleWidth = width / baseWidth;

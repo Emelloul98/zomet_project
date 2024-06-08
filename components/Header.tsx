@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { normalize, normalizeHeight } from '../styles/globalJS';
+import { normalize, normalizeHeight,height } from '../styles/globalJS';
 
 type navProps = {
   nav: any;
@@ -41,7 +41,7 @@ export default function Header(props: navProps) {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
+    height: height*0.15,
   },
   header_icons: {
     flex: 1,

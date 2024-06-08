@@ -1,45 +1,51 @@
 import React from 'react'
-import { Image, StyleSheet, Platform, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, Platform, View, Text } from 'react-native';
 import Header from '../components/Header';
 import { globalStyles } from '../styles/global';
+import { height } from '../styles/globalJS';
 
-export default function Settings({navigation}) {
-  
+export default function Settings({ navigation }) {
+
   return (
-    <View style={globalStyles.homeMainView}>
-      <Header nav={navigation} settingsOrSched="Home" iconeType="schedular-outline"/>
-      <View style={globalStyles.bodyContainer}>
-        <View style={styles.clockSettings}>
-          <Text style={globalStyles.zomet_text}>הגדרות השעון:</Text>
-          <View style={styles.currentTime}>
-            <Text style={globalStyles.zomet_text}>זמן נוכחי בשעון:</Text>
-            <Text style={globalStyles.zomet_text}>זמן נוכחי:</Text>
-          </View>
-          <Text style={globalStyles.zomet_text}>זמן אחר:</Text>
+    <ScrollView style={styles.scrollViewContent}>
+      <Header nav={navigation} settingsOrSched="Home" iconeType="schedular-outline" />
+      <View style={styles.clockSettings}>
+        <Text style={globalStyles.zomet_text}>הגדרות השעון:</Text>
+        <View style={styles.currentTime}>
+          <Text style={globalStyles.zomet_text}>זמן נוכחי בשעון:</Text>
+          <Text style={globalStyles.zomet_text}>זמן נוכחי:</Text>
         </View>
-        <View style={styles.dataSettings}>
-        </View>
-         
+        <Text style={globalStyles.zomet_text}>זמן אחר:</Text>
       </View>
-    </View>
+
+      <Text style={globalStyles.zomet_text}>נתוני השעון</Text>
+      <Text style={globalStyles.zomet_text}>שם: </Text>
+      <Text style={globalStyles.zomet_text}>גרסת תוכנה: </Text>
+      <Text style={globalStyles.zomet_text}>אזור זמן: </Text>
+      <Text style={globalStyles.zomet_text}>זמן עולמי: </Text>
+      <Text style={globalStyles.zomet_text}>תאריך עברי: </Text>
+      <Text style={globalStyles.zomet_text}>זריחה במישור: </Text>
+      <Text style={globalStyles.zomet_text}>שקיעה במישור: </Text>
+      <Text style={globalStyles.zomet_text}>נתוני המערכת</Text>
+      <Text style={globalStyles.zomet_text}>אזור זמן: </Text>
+      <Text style={globalStyles.zomet_text}>זמן מקומי: </Text> 
+      {/* </View>  */}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  clockSettings:{
-    flex: 1,
+  clockSettings: {
+    height: height * 0.25,
     backgroundColor: 'red',
-    // padding: 50,
   },
-  currentTime:{
+  currentTime: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  dataSettings:{
-    flex: 2,
-    backgroundColor: 'blue',
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingVertical: 20,
   }
- 
+
 });
-
-

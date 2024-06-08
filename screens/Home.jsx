@@ -3,7 +3,8 @@ import { StyleSheet, View, Text } from 'react-native';
 import Header from '../components/Header';
 import { globalStyles } from '@/styles/global';
 import HebrewDate  from '@/components/HebrewDate';
-// import Table from "Table.tsx";
+import Table from "../components/Table.tsx";
+
 export default function Home({ navigation }) {
   const sunrise="6:00";
   const sunset="18:00";
@@ -16,11 +17,9 @@ export default function Home({ navigation }) {
               <Text style={styles.text_element}>ארץ {country}</Text>
               <HebrewDate textStyle={styles.text_element} />
               <Text style={styles.text_element}>זריחה: {sunrise}</Text>
-              <Text style={styles.text_element}>שקיעה:{sunset}</Text>  
+              <Text style={styles.text_element}>שקיעה:{sunset}</Text>
             </View>
-            <View style={styles.table}>
-              
-            </View>
+            <Table />  
         </View>
 
       </View>
@@ -37,8 +36,5 @@ const styles = StyleSheet.create({
     marginRight:'2%',
     fontWeight:'bold'
   },
-  table:{
-
-  }
 });
 

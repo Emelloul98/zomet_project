@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 
 export default function LoginAndHomeStack() { // todo initialRouteName="Login"
   return (
-      <Stack.Navigator initialRouteName="Settings">  
+      <Stack.Navigator initialRouteName="Home">  
         <Stack.Screen
           name="Login"
           component={Login}
