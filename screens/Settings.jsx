@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, StyleSheet, Platform, View, Text } from 'react-native';
 import Header from '../components/Header';
 import { globalStyles } from '../styles/global';
-import { height } from '../styles/globalJS';
+import { height } from '../styles/globalDimension';
 
 export default function Settings({ navigation }) {
 
@@ -29,7 +29,6 @@ export default function Settings({ navigation }) {
       <Text style={globalStyles.zomet_text}>נתוני המערכת</Text>
       <Text style={globalStyles.zomet_text}>אזור זמן: </Text>
       <Text style={globalStyles.zomet_text}>זמן מקומי: </Text> 
-      {/* </View>  */}
     </ScrollView>
   );
 }

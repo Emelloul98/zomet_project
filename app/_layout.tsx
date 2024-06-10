@@ -1,9 +1,9 @@
-// import { Stack } from "expo-router";
+// import React from 'react'
 
-// export default function RootLayout() {
+// type Props = {}
+
+// export default function _layout({}: Props) {
 //   return (
-//     <Stack>
-//       <Stack.Screen name="index" />
-//     </Stack>
-//   );
+//     <div>_layout</div>
+//   )
 // }

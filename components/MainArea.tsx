@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { Ionicons, Fontisto, FontAwesome6, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { normalize, normalizeHeight} from '../styles/globalJS';
-
-export default function Table() {
+import { normalize, normalizeHeight} from '../styles/globalDimension';
+export default function MainArea() {
   return (
     <View style={styles.container}>
 
@@ -30,7 +29,7 @@ export default function Table() {
       </View>
 
       <View style={styles.tableContainer}>
-        <Text>Your Table Component Here</Text>
+
       </View>
 
       <View style={styles.iconsBottom}>
@@ -117,3 +116,27 @@ const styles = StyleSheet.create({
   }
 });
 
+// const scheduleData = {
+//   switchID: 1,
+//   scheduleID: 1,
+//   Schedules: {
+//     Schedule_1: {
+//       switchID: 1,
+//       scheduleID: 1,
+//       isActive: true,
+//       repMode: 'Daily',
+//       timeModeON: 'AM',
+//       dayON: 1,
+//       monON: 1,
+//       yearON: 2024,
+//       hourON: 8,
+//       minON: 0,
+//       timeModeOFF: 'PM',
+//       dayOFF: 1,
+//       monOFF: 1,
+//       yearOFF: 2024,
+//       hourOFF: 6,
+//       minOFF: 0,
+//     },
+//   },
+// };
