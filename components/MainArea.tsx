@@ -9,6 +9,8 @@ import {
 } from "@expo/vector-icons";
 import { normalize, normalizeHeight } from "../styles/globalDimension";
 import TableComponent from "./TableComponent";
+import sendCurToServer from "./TableComponent";
+
 export default function MainArea() {
   return (
     <View style={styles.container}>
@@ -44,9 +46,7 @@ export default function MainArea() {
         </View>
       </View>
 
-      <View style={styles.tableContainer}>
-        <TableComponent />
-      </View>
+      <View style={styles.tableContainer}></View>
 
       <View style={styles.iconsBottom}>
         <View style={styles.leftBottom}>
@@ -68,9 +68,14 @@ export default function MainArea() {
 
         <View style={styles.rightBottom}>
           <TouchableOpacity style={styles.icon}>
-            <AntDesign name="upload" size={normalize(24)} color="#231dd3" />
+            <AntDesign
+              name="upload"
+              size={normalize(24)}
+              color="#231dd3"
+              onPress={sendCurToServer}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity style={styles.icon} onPress={sendCurToServer}>
             <AntDesign name="download" size={normalize(24)} color="#231dd3" />
           </TouchableOpacity>
         </View>
