@@ -40,7 +40,6 @@ export default function Login({ navigation}) {
               onChangeText={handleChange("name")}
               onBlur={handleBlur("name")}
               value={values.name}
-              // keyboardType="email-address"
               autoCapitalize="none"
             />
             <Text style={globalStyles.error}>{touched.name && errors.name}</Text>

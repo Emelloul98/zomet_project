@@ -1,7 +1,7 @@
 import { StyleSheet,Dimensions, PixelRatio } from 'react-native'
 
 export const globalStyles = StyleSheet.create({
-    homeMainView: {
+    screenContainer: {
         flex: 1,
         backgroundColor: 'white',
     },
