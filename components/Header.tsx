@@ -24,7 +24,7 @@ export default function Header(props: navProps) {
           {props.settingsIcon === "Settings" && (
             <TouchableOpacity onPress={()=> props.nav.navigate("Settings")}>
               <Ionicons name="settings-outline" style={styles.headers_icon} />
-            </TouchableOpacity>
+            </TouchableOpacity>)}
           </View>
           <Image 
             style={styles.zomet_logo}
