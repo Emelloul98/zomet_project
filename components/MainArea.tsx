@@ -5,14 +5,8 @@ import { normalize, normalizeHeight} from '../styles/globalDimension';
 export default function MainArea() {
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
       <View style={styles.iconsTop}>
 
-=======
-
-      <View style={styles.iconsTop}>
-
->>>>>>> b19a8eb8b58ca0e93eab1ddf334c38c40dfa811c
           <View style={styles.leftTop}>
             <TouchableOpacity>
               <MaterialCommunityIcons name="lightbulb-off" size={normalize(24)} color="#231dd3"/>
