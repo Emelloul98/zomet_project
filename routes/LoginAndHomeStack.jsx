@@ -3,7 +3,6 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
 import Home from "../screens/Home";
-import EditTable from "../screens/EditTable.jsx";
 import Settings from "../screens/Settings";
 
 const Stack = createStackNavigator();
