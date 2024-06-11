@@ -5,8 +5,14 @@ import { normalize, normalizeHeight} from '../styles/globalDimension';
 export default function MainArea() {
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
       <View style={styles.iconsTop}>
 
+=======
+
+      <View style={styles.iconsTop}>
+
+>>>>>>> b19a8eb8b58ca0e93eab1ddf334c38c40dfa811c
           <View style={styles.leftTop}>
             <TouchableOpacity>
               <MaterialCommunityIcons name="lightbulb-off" size={normalize(24)} color="#231dd3"/>
@@ -61,58 +67,58 @@ export default function MainArea() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "5%", // making space from the upper text
+    marginTop: '5%', // making space from the upper text
     width: normalize(250),
-    height: normalizeHeight(350),
+    height:normalizeHeight(350),
     borderWidth: normalize(2),
-    borderColor: "#231dd3",
+    borderColor: '#231dd3',
     borderRadius: normalize(10),
-    alignSelf: "center", // Center the container horizontally
+    alignSelf: 'center', // Center the container horizontally
   },
   iconsTop: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "space-between", // Distribute items evenly along the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'space-between', // Distribute items evenly along the row
     padding: normalize(10),
   },
   iconsBottom: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "space-between", // Distribute items evenly along the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'space-between', // Distribute items evenly along the row
     padding: normalize(10),
   },
   tableContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: normalize(5),
     marginVertical: normalize(10),
   },
   rightTop: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "flex-end", // Align items to the end of the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'flex-end', // Align items to the end of the row
   },
   rightBottom: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "flex-end", // Align items to the end of the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'flex-end', // Align items to the end of the row
   },
   leftTop: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "flex-start", // Align items to the end of the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'flex-start', // Align items to the end of the row
   },
   leftBottom: {
-    flexDirection: "row",
-    alignItems: "center", // Center items vertically in the row
-    justifyContent: "flex-start", // Align items to the end of the row
+    flexDirection: 'row',
+    alignItems: 'center', // Center items vertically in the row
+    justifyContent: 'flex-start', // Align items to the end of the row
   },
-  icon: {
+  icon:{
     padding: normalize(5),
-  },
+  }
 });
 
 // const scheduleData = {
