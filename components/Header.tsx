@@ -24,16 +24,15 @@ export default function Header(props: navProps) {
           {props.settingsIcon === "Settings" && (
             <TouchableOpacity onPress={()=> props.nav.navigate("Settings")}>
               <Ionicons name="settings-outline" style={styles.headers_icon} />
-            </TouchableOpacity>
-          )}
+            </TouchableOpacity>)}
+          </View>
+          <Image 
+            style={styles.zomet_logo}
+            source={require('../assets/images/zomet_icon.png')}
+            resizeMode="contain"
+          />
         </View>
-        <Image
-          style={styles.zomet_logo}
-          source={require("../assets/images/zomet_icon.png")}
-          resizeMode="contain"
-        />
-      </View>
-      <Text style={styles.application_title}>שעון אסטרונומי צומת</Text>
+        <Text style={styles.application_title}>שעון אסטרונומי צומת</Text>
     </View>
   );
 }
