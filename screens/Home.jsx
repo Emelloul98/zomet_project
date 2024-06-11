@@ -16,21 +16,21 @@ export default function Home({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("EditTable")}
           >
-            <Text style={styles.buttonText}>ערוך שעון</Text>
+            <Text style={styles.buttonText}>ערוך טבלת שעון</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity
           style={styles.button}
-          onPress={() => alert("Button 1 Pressed")}
+          onPress={() => alert("חיפוש שעון טרם מומש")}
         >
-          <Text style={styles.buttonText}>חפש שעון</Text>
+          <Text style={styles.buttonText}>חפש שעון חדש</Text>
         </TouchableOpacity>
         {!connection && (
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("EditTable")}
             >
-            <Text style={styles.buttonText}>ערוך טבלה</Text>
+            <Text style={styles.buttonText}>ערוך טבלה offline</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity

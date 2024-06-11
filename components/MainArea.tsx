@@ -9,16 +9,16 @@ export default function MainArea() {
 
           <View style={styles.leftTop}>
             <TouchableOpacity>
-              <MaterialCommunityIcons name="lightbulb-off" size={normalize(24)} color="#231dd3"/>
+              <MaterialCommunityIcons name="lightbulb-off-outline" size={28} color="#231dd3" />
             </TouchableOpacity>
             <TouchableOpacity>
-              <MaterialCommunityIcons name="lightbulb" size={normalize(24)} color="#231dd3"/>
+              <MaterialCommunityIcons name="lightbulb-outline" size={28} color="#231dd3" />
             </TouchableOpacity>
           </View>
 
           <View style={styles.rightTop}>
             <TouchableOpacity style={styles.icon}>
-              <AntDesign name="calendar" size={normalize(24)} color="#231dd3" />
+              <Ionicons name="calendar-number-outline" size={normalize(26)} color="#231dd3"/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
               <FontAwesome6 name="hand-pointer" size={normalize(24)} color="#231dd3"/>
@@ -30,19 +30,19 @@ export default function MainArea() {
       <View style={styles.tableContainer}>
 
       </View>
-
+      
       <View style={styles.iconsBottom}>
           <View style={styles.leftBottom}>
             <TouchableOpacity style={styles.icon}>
-              <Ionicons name="folder-open-outline" size={normalize(24)} color="#231dd3"/>
+              <Ionicons name="folder-open-outline" size={normalize(26)} color="#231dd3"/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
-              <Fontisto name="save" size={normalize(20)} color="#231dd3"/>
+              <Ionicons name="save-outline" size={normalize(24)} color="#231dd3"/>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity>
-            <FontAwesome6 name="eraser" size={normalize(24)} color="#231dd3"/>
+            <Ionicons name="trash-outline" size={normalize(24)} color="#231dd3" />
           </TouchableOpacity>
           
           <View style={styles.rightBottom}>
