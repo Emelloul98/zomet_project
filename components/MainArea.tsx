@@ -8,9 +8,6 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { normalize, normalizeHeight } from "../styles/globalDimension";
-import TableComponent from "./TableComponent";
-import sendCurToServer from "./TableComponent";
-
 export default function MainArea() {
   return (
     <View style={styles.container}>
@@ -18,15 +15,15 @@ export default function MainArea() {
         <View style={styles.leftTop}>
           <TouchableOpacity>
             <MaterialCommunityIcons
-              name="lightbulb-off"
-              size={normalize(24)}
+              name="lightbulb-off-outline"
+              size={28}
               color="#231dd3"
             />
           </TouchableOpacity>
           <TouchableOpacity>
             <MaterialCommunityIcons
-              name="lightbulb"
-              size={normalize(24)}
+              name="lightbulb-outline"
+              size={28}
               color="#231dd3"
             />
           </TouchableOpacity>
@@ -34,7 +31,11 @@ export default function MainArea() {
 
         <View style={styles.rightTop}>
           <TouchableOpacity style={styles.icon}>
-            <AntDesign name="calendar" size={normalize(24)} color="#231dd3" />
+            <Ionicons
+              name="calendar-number-outline"
+              size={normalize(26)}
+              color="#231dd3"
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icon}>
             <FontAwesome6
@@ -53,29 +54,28 @@ export default function MainArea() {
           <TouchableOpacity style={styles.icon}>
             <Ionicons
               name="folder-open-outline"
-              size={normalize(24)}
+              size={normalize(26)}
               color="#231dd3"
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icon}>
-            <Fontisto name="save" size={normalize(20)} color="#231dd3" />
+            <Ionicons
+              name="save-outline"
+              size={normalize(24)}
+              color="#231dd3"
+            />
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity>
-          <FontAwesome6 name="eraser" size={normalize(24)} color="#231dd3" />
+          <Ionicons name="trash-outline" size={normalize(24)} color="#231dd3" />
         </TouchableOpacity>
 
         <View style={styles.rightBottom}>
           <TouchableOpacity style={styles.icon}>
-            <AntDesign
-              name="upload"
-              size={normalize(24)}
-              color="#231dd3"
-              onPress={sendCurToServer}
-            />
+            <AntDesign name="upload" size={normalize(24)} color="#231dd3" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon} onPress={sendCurToServer}>
+          <TouchableOpacity style={styles.icon}>
             <AntDesign name="download" size={normalize(24)} color="#231dd3" />
           </TouchableOpacity>
         </View>
@@ -162,5 +162,5 @@ const styles = StyleSheet.create({
 //       hourOFF: 6,
 //       minOFF: 0,
 //     },
-//   },
-// };
+//   },
+// };
