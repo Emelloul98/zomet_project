@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { normalize, normalizeHeight, height } from "../styles/globalDimension";
 import { AntDesign } from '@expo/vector-icons';
 type navProps = {
-  nav: any;
+  navigation: any;
   settingsIcon: string;
   backIcon: string;
   whereToBack: string;
@@ -16,13 +16,13 @@ export default function Header(props: navProps) {
       <View style={styles.header_icons}>
         <View style={styles.left_icons}>
           {props.backIcon === "Back" && (
-            <TouchableOpacity onPress={()=> props.nav.navigate(props.whereToBack)}>
+            <TouchableOpacity onPress={()=> props.navigation.navigate(props.whereToBack)}>
               <AntDesign name="left" size={24} style={styles.headers_icon}/>
             </TouchableOpacity>
           )}
           <Ionicons name="wifi-outline" style={styles.headers_icon} />
           {props.settingsIcon === "Settings" && (
-            <TouchableOpacity onPress={()=> props.nav.navigate("Settings")}>
+            <TouchableOpacity onPress={()=> props.navigation.navigate("Settings")}>
               <Ionicons name="settings-outline" style={styles.headers_icon} />
             </TouchableOpacity>)}
           </View>

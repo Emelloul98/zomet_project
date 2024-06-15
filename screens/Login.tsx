@@ -12,7 +12,10 @@ const LoginSchema = object().shape({
     .min(5, "Password is too short - should be 5 chars minimum"),
 });
 
-export default function Login({ navigation}) {
+type screenProps = {
+  navigation: any;
+};
+export default function Login(props: screenProps) {
   return (
     <View style={globalStyles.container}>
       <Formik
@@ -21,7 +24,7 @@ export default function Login({ navigation}) {
           password: "",
         }}
         onSubmit={(values, actions) => {
-          navigation.replace("Home");
+          props.navigation.replace("Home");
         }}
         validationSchema={LoginSchema}
       >

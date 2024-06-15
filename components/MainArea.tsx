@@ -2,7 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { Ionicons, Fontisto, FontAwesome6, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { normalize, normalizeHeight} from '../styles/globalDimension';
+import * as DocumentPicker from 'expo-document-picker';
+
 export default function MainArea() {
+  const pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    // if (result.type === 'success') {
+    //   setFile(result);
+    // }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.iconsTop}>
@@ -33,7 +41,7 @@ export default function MainArea() {
       
       <View style={styles.iconsBottom}>
           <View style={styles.leftBottom}>
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity style={styles.icon} onPress={pickDocument}>
               <Ionicons name="folder-open-outline" size={normalize(26)} color="#231dd3"/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>

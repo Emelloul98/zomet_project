@@ -4,10 +4,13 @@ import Header from "../components/Header";
 import { globalStyles } from "../styles/global";
 import { height } from "../styles/globalDimension";
 
-export default function Settings({ navigation }) {
+type screenProps = {
+  navigation: any;
+};
+export default function Settings(props: screenProps) {
   return (
     <ScrollView style={globalStyles.screenContainer}>
-      <Header nav={navigation} backIcon="Back" whereToBack="EditTable" />
+      <Header navigation={props.navigation} settingsIcon="" backIcon="Back" whereToBack="EditTable" />
       <View style={styles.settings} >
         <Text style={globalStyles.zomet_text_h2}>הגדרות השעון</Text>
         <View style={styles.currentTime}>

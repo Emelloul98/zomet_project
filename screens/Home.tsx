@@ -3,18 +3,21 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Header from "../components/Header";
 import { globalStyles } from "@/styles/global";
 
-export default function Home({ navigation }) {
+type screenProps = {
+  navigation: any;
+};
+export default function Home(props: screenProps) {
 
   const [connection, setConnection] = useState(false);
 
   return (
     <View style={globalStyles.screenContainer}>
-      <Header nav={navigation} />
+      <Header navigation={props.navigation}  settingsIcon="" backIcon="" whereToBack="" />
       <View style={styles.container}>
         {connection && (
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("EditTable")}
+            onPress={() => props.navigation.navigate("EditTable")}
           >
             <Text style={styles.buttonText}>ערוך טבלת שעון</Text>
           </TouchableOpacity>
@@ -28,7 +31,7 @@ export default function Home({ navigation }) {
         {!connection && (
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("EditTable")}
+            onPress={() => props.navigation.navigate("EditTable")}
             >
             <Text style={styles.buttonText}>ערוך טבלה offline</Text>
           </TouchableOpacity>
