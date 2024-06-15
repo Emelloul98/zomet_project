@@ -37,7 +37,17 @@ export const globalStyles = StyleSheet.create({
         alignSelf:'flex-end',
         marginRight:'2%',
         marginTop:'2%',
-        fontWeight:'bold'
+        fontSize:20, //toTo: I added this
+        marginBottom: 8, //toTo: I added this
+    },
+    zomet_text_h2: {
+        color:'#231dd3',
+        alignSelf:'flex-end',
+        marginRight:'2%',
+        marginTop:'2%',
+        fontWeight:'bold',
+        fontSize:25,
+        marginBottom: 12,
     },
     
 
