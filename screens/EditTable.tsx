@@ -5,13 +5,18 @@ import { globalStyles } from '@/styles/global';
 import HebrewDate  from '@/components/HebrewDate';
 import MainArea from "../components/MainArea";
 
-export default function EditTable({ navigation }) {
+type screenProps = {
+  navigation: any;
+};
+
+export default function EditTable(props: screenProps ) {
+
   const sunrise="6:00";
   const sunset="18:00";
   const country="ישראל";
   return (
       <View style={globalStyles.screenContainer}>
-        <Header nav={navigation} settingsIcon='Settings' backIcon='Back' whereToBack='Home'/>
+        <Header navigation={props.navigation} settingsIcon='Settings' backIcon='Back' whereToBack='Home'/>
         <View style={globalStyles.bodyContainer}>
             <View style={styles.texts}>
               <Text style={styles.text_element}>ארץ {country}</Text>

@@ -16,8 +16,17 @@ import {
 import { normalize, normalizeHeight } from "../styles/globalDimension";
 import TableComponent, { Schedule } from "./TableComponent";
 import { sendCurrentData, getCurrentData } from "./TableFunctionality";
+import * as DocumentPicker from 'expo-document-picker';
+
 export default function MainArea() {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
+
+  const pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    // if (result.type === 'success') {
+    //   setFile(result);
+    // }
+  };
 
   const handleSendData = () => {
     sendCurrentData(schedules);
@@ -72,7 +81,7 @@ export default function MainArea() {
 
       <View style={styles.iconsBottom}>
         <View style={styles.leftBottom}>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity style={styles.icon} onPress={pickDocument}>
             <Ionicons
               name="folder-open-outline"
               size={normalize(26)}
