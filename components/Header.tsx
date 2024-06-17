@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet,Text,View,Image,TouchableOpacity,Dimensions,PixelRatio,} from "react-native";
+import {StyleSheet,Text,View,Image,TouchableOpacity} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { normalize, normalizeHeight, height } from "../styles/globalDimension";
 import { AntDesign } from '@expo/vector-icons';
@@ -32,7 +32,7 @@ export default function Header(props: navProps) {
             resizeMode="contain"
           />
         </View>
-        <Text style={styles.application_title}>שעון אסטרונומי צומת</Text>
+        <Text style={styles.application_title}>אפליקציית שעון אסטרונומי</Text>
     </View>
   );
 }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontFamily: "Arial",
     textAlign: "center",
     color: "#231dd3",
-    fontSize: normalize(27),
+    fontSize: normalize(25),
     marginLeft: "5%",
   },
   zomet_logo: {

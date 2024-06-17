@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import {
   Ionicons,
-  Fontisto,
   FontAwesome6,
   AntDesign,
   MaterialCommunityIcons,
