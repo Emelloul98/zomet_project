@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import {
   Ionicons,
@@ -16,16 +17,53 @@ import { normalize, normalizeHeight } from "../styles/globalDimension";
 import TableComponent, { Schedule } from "./TableComponent";
 import { sendCurrentData, getCurrentData } from "./TableFunctionality";
 import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+
 
 export default function MainArea() {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
-  const pickDocument = async () => {
-    let result = await DocumentPicker.getDocumentAsync({});
-    // if (result.type === 'success') {
-    //   setFile(result);
-    // }
+  const upLoadFromFileSystem = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({
+        type: 'application/json',
+      });
+      if (result.canceled === false) {
+        const response = await fetch(result.assets[0].uri); // Fetch the data from the file uri
+        const fileData = await response.text(); // Get the data as text
+        const jsonData = JSON.parse(fileData); // Parse the JSON string
+        setSchedules(jsonData); //todo check if the data is in the correct format
+      }
+
+    } catch (error) {
+      Alert.alert('Error', `There was an error reading the file: ${error}`);
+    }
+
   };
+
+
+  const saveToFileSystem = async () => {
+    try {
+      const fileName = 'schedule.json';
+      const fileUri = FileSystem.documentDirectory + fileName;
+
+      // Write the data to the file
+      await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(schedules));  
+
+      // Check if sharing is available
+      if (!(await Sharing.isAvailableAsync())) {
+        Alert.alert('Error', 'Sharing is not available on this device');
+        return;
+      }
+
+      // Share the file
+      await Sharing.shareAsync(fileUri);
+    } catch (error) {
+      Alert.alert('Error', `There was an error saving the file: ${error}`);
+    }
+  };
+
 
   const handleSendData = () => {
     sendCurrentData(schedules);
@@ -80,14 +118,14 @@ export default function MainArea() {
 
       <View style={styles.iconsBottom}>
         <View style={styles.leftBottom}>
-          <TouchableOpacity style={styles.icon} onPress={pickDocument}>
+          <TouchableOpacity style={styles.icon} onPress={upLoadFromFileSystem}>
             <Ionicons
               name="folder-open-outline"
               size={normalize(26)}
               color="#231dd3"
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity style={styles.icon} onPress={saveToFileSystem}>
             <Ionicons
               name="save-outline"
               size={normalize(24)}
