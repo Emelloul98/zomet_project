@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, Text, Button, StyleSheet } from "react-native";
 import DisplaySchedules from "./DisplaySchedules";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export interface Schedule {
   switchID: number;
@@ -8,17 +9,17 @@ export interface Schedule {
   isActive: boolean;
   repMode: string;
   timeModeON: string;
-  dayON: number;
-  monON: number;
-  yearON: number;
-  hourON: number;
-  minON: number;
+  dayON: string;
+  monON: string;
+  yearON: string;
+  hourON: string;
+  minON: string;
   timeModeOFF: string;
-  dayOFF: number;
-  monOFF: number;
-  yearOFF: number;
-  hourOFF: number;
-  minOFF: number;
+  dayOFF: string;
+  monOFF: string;
+  yearOFF: string;
+  hourOFF: string;
+  minOFF: string;
 }
 
 interface TableComponentProps {
@@ -36,28 +37,32 @@ const TableComponent: React.FC<TableComponentProps> = ({
     setLocalSchedules(schedules);
   }, [schedules]);
 
-  const default_values = {
+  const default_values: Omit<Schedule, "scheduleID"> = {
     switchID: 1,
-    isActive: true,
-    repMode: "Daily",
-    timeModeON: "AM",
-    dayON: 1,
-    monON: 1,
-    yearON: 2024,
-    hourON: 8,
-    minON: 0,
-    timeModeOFF: "PM",
-    dayOFF: 1,
-    monOFF: 1,
-    yearOFF: 2024,
-    hourOFF: 6,
-    minOFF: 0,
+    isActive: false,
+    repMode: "daily",
+    timeModeON: "localTime",
+    dayON: "0",
+    monON: "0",
+    yearON: "5784",
+    hourON: "8",
+    minON: "00",
+    timeModeOFF: "localTime",
+    dayOFF: "0",
+    monOFF: "0",
+    yearOFF: "5784",
+    hourOFF: "10",
+    minOFF: "00",
   };
 
   const addSchedule = () => {
-    let new_row = { ...default_values, scheduleID: localSchedules.length + 1 };
-    setLocalSchedules([...localSchedules, new_row]);
-    setSchedules([...localSchedules, new_row]); // Update the parent state
+    const newSchedule: Schedule = {
+      ...default_values,
+      scheduleID: localSchedules.length + 1,
+    };
+    const updatedSchedules = [...localSchedules, newSchedule];
+    setLocalSchedules(updatedSchedules);
+    setSchedules(updatedSchedules); // Update the parent state
   };
 
   const deleteSchedule = () => {
@@ -88,11 +93,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </View>
         <View>
           <View style={styles.row}>
-            <Text style={styles.cell}> ---</Text>
-            <Text style={styles.cell}>סוג זמן</Text>
-            <Text style={styles.cell}>שעה</Text>
-            <Text style={styles.cell}>דקה</Text>
-            <Text style={styles.cell}>יום</Text>
+            <View style={styles.cell_icon}>
+              <Icon name="arrow-down" size={12} color="black" />
+            </View>
+            <Text style={styles.cell_time_modes}>סוג זמן</Text>
+            <Text style={styles.cell_time}>זמן</Text>
+            <Text style={styles.cell_day}>יום</Text>
             <Text style={styles.cell}>חזרות</Text>
             <Text style={styles.cell_id}>#</Text>
           </View>
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   table: {
-    margin: 6,
+    margin: 5,
   },
   main_header: {
     flexDirection: "row",
@@ -133,19 +139,67 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#ddd",
   },
+
   cell: {
-    width: "16%",
-    padding: 10,
+    width: "18.5%",
+    padding: 11,
     fontSize: 12,
+    textAlign: "center",
+    justifyContent: "center",
+
+    borderColor: "#ddd",
+    borderWidth: 1,
+    fontWeight: "bold",
+  },
+
+  cell_id: {
+    fontSize: 12,
+    width: "6.5%",
+    padding: 0,
+    textAlign: "center",
+    justifyContent: "center",
+
+    borderColor: "#ddd",
+    borderWidth: 1,
+    fontWeight: "bold",
+  },
+
+  cell_time: {
+    fontSize: 12,
+    width: "19.2%",
+    padding: 11,
     textAlign: "center",
     borderColor: "#ddd",
     borderWidth: 1,
+    fontWeight: "bold",
   },
-  cell_id: {
+
+  cell_day: {
     fontSize: 12,
-    width: "4%",
-    padding: 4,
+    width: "32.2%",
     textAlign: "center",
+    borderColor: "#ddd",
+    padding: 11,
+    borderWidth: 1,
+    fontWeight: "bold",
+  },
+
+  cell_time_modes: {
+    fontSize: 12,
+    width: "17.5%",
+    padding: 11,
+    textAlign: "center",
+    borderColor: "#ddd",
+    borderWidth: 1,
+    fontWeight: "bold",
+  },
+
+  cell_icon: {
+    width: "6%",
+    padding: 2,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
     borderColor: "#ddd",
     borderWidth: 1,
   },

@@ -1,11 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Animated, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Animated,
+  Image,
+  Platform,
+  Linking,
+  Alert,
+} from "react-native";
 import Header from "../components/Header";
 import { globalStyles } from "@/styles/global";
 import type { PropsWithChildren } from "react";
 import type { ViewStyle } from "react-native";
 import { normalize, normalizeHeight, width } from "@/styles/globalDimension";
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 type FadeInViewProps = PropsWithChildren<{ style: ViewStyle }>;
 
@@ -35,15 +49,41 @@ const FadeInView: React.FC<FadeInViewProps> = (props) => {
 type ScreenProps = {
   navigation: any;
 };
+const openDeviceSettings = async () => {
+  try {
+    if (Platform.OS === "ios") {
+      const url = "App-Prefs:root=WIFI"; // This should directly open WiFi settings on iOS
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert("אין אפשרות לפתוח הגדרות במכשיר זה");
+      }
+    } else {
+      Linking.sendIntent("android.settings.SETTINGS");
+    }
+  } catch (error) {
+    console.error("Error opening device settings:", error);
+    Alert.alert("שגיאה בפתיחת הגדרות המכשיר");
+  }
+};
 
 export default function Home(props: ScreenProps) {
   const [connection, setConnection] = useState(false);
 
   return (
     <View style={globalStyles.screenContainer}>
-      <Header navigation={props.navigation} settingsIcon="" backIcon="" whereToBack="" />
+      <Header
+        navigation={props.navigation}
+        settingsIcon=""
+        backIcon=""
+        whereToBack=""
+      />
       <FadeInView style={styles.smart_home_img_container}>
-        <Image source={require('../assets/images/zomer_home.jpg')} style={styles.smart_home_img} />
+        <Image
+          source={require("../assets/images/zomer_home.jpg")}
+          style={styles.smart_home_img}
+        />
       </FadeInView>
       <View style={styles.container}>
         {connection && (
@@ -51,23 +91,47 @@ export default function Home(props: ScreenProps) {
             style={styles.button}
             onPress={() => props.navigation.navigate("EditTable")}
           >
-            <MaterialCommunityIcons name="clock-edit-outline" color="#fff" size={normalize(16)} style={styles.icon} />
+            <MaterialCommunityIcons
+              name="clock-edit-outline"
+              color="#fff"
+              size={normalize(16)}
+              style={styles.icon}
+            />
             <Text style={styles.buttonText}>ערוך טבלת שעון</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.button} onPress={() => alert("חיפוש שעון טרם מומש")}>
-          <FontAwesome name="search" color="#fff" size={normalize(16)} style={styles.icon} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => openDeviceSettings()}
+        >
+          <FontAwesome
+            name="search"
+            color="#fff"
+            size={normalize(16)}
+            style={styles.icon}
+          />
           <Text style={styles.buttonText}>חפש שעון חדש</Text>
         </TouchableOpacity>
-          {!connection && (
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("EditTable")}>
-              <MaterialIcons name="edit-calendar" size={normalize(16)} color="#fff" style={styles.icon} />
-              <Text style={styles.buttonText}>ערוך טבלה offline</Text>
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity style={styles.temp_button} onPress={() => setConnection(!connection)}>
-            <Text style={styles.buttonText}>שנה מצב חיבור</Text>
+        {!connection && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => props.navigation.navigate("EditTable")}
+          >
+            <MaterialIcons
+              name="edit-calendar"
+              size={normalize(16)}
+              color="#fff"
+              style={styles.icon}
+            />
+            <Text style={styles.buttonText}>ערוך טבלה offline</Text>
           </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          style={styles.temp_button}
+          onPress={() => setConnection(!connection)}
+        >
+          <Text style={styles.buttonText}>שנה מצב חיבור</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
