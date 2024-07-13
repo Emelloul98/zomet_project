@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "zomet1",
+    "slug": "zomet1",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.rraziel.zomet1",
+      "runtimeVersion": "1.0.0"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c3f09751-570b-4282-9400-08cb6407e1b8"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c3f09751-570b-4282-9400-08cb6407e1b8"
+    }
+  }
+}
