@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "zomet1",
+    "name": "שעון צומת",
     "slug": "zomet1",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/zomet_icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.rraziel.zomet1",

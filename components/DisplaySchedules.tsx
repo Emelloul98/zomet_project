@@ -1,12 +1,11 @@
-
-// קוד מתוקן של הצאט לבעיות של UNDEFINED לבדוק מול האפליקציה שלא עושה בעיות בייצוא
-import React, { useState } from "react"; // ייבוא ספריית React והפונקציה useState
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import {
   week_days,
@@ -20,6 +19,7 @@ import Modal from "react-native-modal";
 import { Picker } from "@react-native-picker/picker";
 import { Schedule } from "./TableComponent";
 import Icon from "react-native-vector-icons/FontAwesome";
+import CustomPicker from "../components/CustomPicker";
 
 interface DisplaySchedulesProps {
   schedules: Schedule[];
@@ -69,6 +69,8 @@ const DisplaySchedules: React.FC<DisplaySchedulesProps> = ({
     label: String(i).padStart(2, "0"),
     value: String(i).padStart(2, "0"),
   }));
+
+  const formatTimeValue = (value: string) => String(value).padStart(2, "0");
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [pickerType, setPickerType] = useState("");
@@ -268,30 +270,37 @@ const DisplaySchedules: React.FC<DisplaySchedulesProps> = ({
                 <Text style={styles.editableText}>{"מוצאי חגים"}</Text>
               </View>
             ) : null}
+
             <View style={styles.cell_time}>
               <TouchableOpacity
                 onPress={() => toggleModal("timeON", schedule.scheduleID)}
               >
                 <Text style={styles.editableText}>
-                  {hours.find((hour) => hour.value === schedule.hourON)
-                    ?.label || "00"}
+                  {hours.find(
+                    (hour) => hour.value === formatTimeValue(schedule.hourON)
+                  )?.label || "00"}
                   :
-                  {minutes.find((minute) => minute.value === schedule.minON)
-                    ?.label || "00"}
+                  {minutes.find(
+                    (minute) => minute.value === formatTimeValue(schedule.minON)
+                  )?.label || "00"}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => toggleModal("timeOFF", schedule.scheduleID)}
               >
                 <Text style={styles.editableText}>
-                  {hours.find((hour) => hour.value === schedule.hourOFF)
-                    ?.label || "00"}
+                  {hours.find(
+                    (hour) => hour.value === formatTimeValue(schedule.hourOFF)
+                  )?.label || "00"}
                   :
-                  {minutes.find((minute) => minute.value === schedule.minOFF)
-                    ?.label || "00"}
+                  {minutes.find(
+                    (minute) =>
+                      minute.value === formatTimeValue(schedule.minOFF)
+                  )?.label || "00"}
                 </Text>
               </TouchableOpacity>
             </View>
+
             <View style={styles.cell_time_modes}>
               <TouchableOpacity
                 onPress={() => toggleModal("timeModeON", schedule.scheduleID)}
@@ -786,6 +795,7 @@ const DisplaySchedules: React.FC<DisplaySchedulesProps> = ({
               </View>
             </>
           )}
+
           {pickerType === "timeOFF" && currentScheduleID !== null && (
             <>
               <Text style={styles.title}>בחר זמן כיבוי</Text>
@@ -922,23 +932,23 @@ const styles = StyleSheet.create({
   },
 
   schedule_row: {
-    flexDirection: "row-reverse", // @@@
+    flexDirection: "row", // @@@
     borderBottomWidth: 1,
     borderColor: "#ddd",
   },
-  
+
   timePicker: {
-    width: Dimensions.get("window").width * 0.4,
+    width: Dimensions.get("window").width * 0.35,
   },
 
   picker: {
     flex: 1,
   },
-  
+
   schedule_data: {
     fontSize: 12,
     width: "64%",
-    flexDirection: "row-reverse", //@@@
+    flexDirection: "row", //@@@
     textAlign: "center",
   },
 
@@ -1027,6 +1037,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: "rgba(0, 0, 0, 0.1)",
     width: Dimensions.get("window").width * 0.9,
+    height: Dimensions.get("window").height * 0.5,
   },
 
   title: {
@@ -1072,7 +1083,7 @@ const styles = StyleSheet.create({
   },
 
   timePickerContainer: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     justifyContent: "center",
     alignItems: "center",
   },

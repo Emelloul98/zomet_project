@@ -1,8 +1,13 @@
 import Header from "@/components/Header";
 import React from "react";
-import { StyleSheet, View, Text, ScrollView, Image, Dimensions } from "react-native";
-
-
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Dimensions,
+} from "react-native";
 
 type ScreenProps = {
   navigation: any;
@@ -26,18 +31,30 @@ export default function Info(props: ScreenProps) {
 
   // List of objects with text and image references
   const infoData = [
-    { id: 1, text: textData[0], image: require('../assets/images/info1.jpg') },
-    { id: 2, text: textData[1], image: require('../assets/images/info2.jpg') },
-    { id: 3, text: textData[2], image: require('../assets/images/info3.jpg') },
-    { id: 4, text: textData[3], image: require('../assets/images/info4.jpg') },
-    { id: 5, text: textData[4], image: require('../assets/images/info5.jpg') },
-    { id: 6, text: textData[5], image: require('../assets/images/info6.jpg') },
-    { id: 7, text: textData[6], image: require('../assets/images/info7.jpg') },
-    { id: 8, text: textData[7], image: require('../assets/images/info8.jpg') },
-    { id: 9, text: textData[8], image: require('../assets/images/info9.jpg') },
-    { id: 10, text: textData[9], image: require('../assets/images/info10.jpg') },
-    { id: 11, text: textData[10], image: require('../assets/images/info11.jpg') },
-    { id: 12, text: textData[11], image: require('../assets/images/info12.jpg') },
+    { id: 1, text: textData[0], image: require("../assets/images/info1.jpg") },
+    { id: 2, text: textData[1], image: require("../assets/images/info2.jpg") },
+    { id: 3, text: textData[2], image: require("../assets/images/info3.jpg") },
+    { id: 4, text: textData[3], image: require("../assets/images/info4.jpg") },
+    { id: 5, text: textData[4], image: require("../assets/images/info5.jpg") },
+    { id: 6, text: textData[5], image: require("../assets/images/info6.jpg") },
+    { id: 7, text: textData[6], image: require("../assets/images/info7.jpg") },
+    { id: 8, text: textData[7], image: require("../assets/images/info8.jpg") },
+    { id: 9, text: textData[8], image: require("../assets/images/info9.jpg") },
+    {
+      id: 10,
+      text: textData[9],
+      image: require("../assets/images/info10.jpg"),
+    },
+    {
+      id: 11,
+      text: textData[10],
+      image: require("../assets/images/info11.jpg"),
+    },
+    {
+      id: 12,
+      text: textData[11],
+      image: require("../assets/images/info12.jpg"),
+    },
   ];
 
   return (
@@ -45,7 +62,11 @@ export default function Info(props: ScreenProps) {
       <Header navigation={props.navigation} backIcon={true} isConnect={false} />
       {infoData.map((item) => (
         <View key={item.id} style={styles.infoItem}>
-          <Image source={item.image} style={styles.image} resizeMode="cover" />
+          <Image
+            source={item.image}
+            style={styles.image}
+            resizeMode="contain"
+          />
           <View style={styles.textView}>
             <Text style={styles.text}>{item.text}</Text>
           </View>
@@ -58,41 +79,40 @@ export default function Info(props: ScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
     paddingVertical: 20,
   },
   infoItem: {
-    flexDirection: 'row',
-    width: '90%',
-    height: 300,
+    flexDirection: "row-reverse",
+    width: "90%",
+    height: 265,
     marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#f0f0f0',
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
   },
   image: {
-    width: '50%', 
-    height: '100%',
+    width: "40%",
+    height: "100%",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
+    borderRadius: 10,
   },
   textView: {
-    width: '50%', 
+    width: "60%",
     paddingHorizontal: 10,
     paddingVertical: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   text: {
     fontSize: 16,
-    textAlign: 'right',
+    textAlign: "right",
   },
 });
-

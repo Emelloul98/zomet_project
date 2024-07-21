@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ScrollView,
   StyleSheet,
   View,
   Text,
+  I18nManager,
+  TouchableOpacity,
+  Button,
+  Alert,
 } from "react-native";
-import { useRoute } from '@react-navigation/native';
+import { useRoute } from "@react-navigation/native";
 import Header from "../components/Header";
 import { globalStyles } from "../styles/global";
 import { height } from "../styles/globalDimension";
 import moment from "moment";
+import Popup from "../components/Popup";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { normalize, normalizeHeight } from "../styles/globalDimension";
 
 const ZAC_URL = "http://192.168.4.1";
 
@@ -17,7 +24,7 @@ type screenProps = {
   navigation: any;
 };
 
-export default function Settings( props: screenProps) {
+export default function Settings(props: screenProps) {
   const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
   const [name, setName] = useState("");
   const [firmwareVersion, setFirmwareVersion] = useState("");
@@ -25,23 +32,40 @@ export default function Settings( props: screenProps) {
   const [hDateString, setHDateString] = useState("");
   const [sunrise, setSunrise] = useState("");
   const [sunset, setSunset] = useState("");
+  const [LocalTime, setLocalTime] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const isInitialRender = useRef(true);
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+    } else {
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 1000); // Hide the popup after one second
+    }
+  }, [updateSuccess]);
 
   const route = useRoute();
-  const isConnectToChip = route.params as {isConnectToChip: boolean};
-    
+  const isConnectToChip = route.params as { isConnectToChip: boolean };
+
   useEffect(() => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+
     const intervalId = setInterval(() => {
       setCurrentTime(moment().format("HH:mm:ss"));
     }, 1000); // Update every second
 
-    if(isConnectToChip.isConnectToChip){
+    if (isConnectToChip.isConnectToChip) {
       fetchData();
     }
-    
+
     return () => clearInterval(intervalId); // Clean up on unmount
   }, []);
 
-  
   const fetchData = async () => {
     try {
       const response = await fetch(`${ZAC_URL}/Get?Status`, {
@@ -59,6 +83,7 @@ export default function Settings( props: screenProps) {
         setHDateString(data.zacHDateString);
         setSunrise(data.zacLocalSunRiseString);
         setSunset(data.zacLocalSunSetString);
+        setLocalTime(data.zacLocalDateTimeString);
       } else {
         console.error("Response not OK:", response.status);
       }
@@ -67,25 +92,87 @@ export default function Settings( props: screenProps) {
     }
   };
 
+  const onClickSetDateTimeNow = async () => {
+    const now = new Date();
+    const jsonDateTime = {
+      utcDayOfMonth: now.getUTCDate(),
+      utcMonth: now.getUTCMonth() + 1,
+      utcYear: now.getUTCFullYear(),
+      utcHours: now.getUTCHours(),
+      utcMinutes: now.getUTCMinutes(),
+      utcSeconds: now.getUTCSeconds(),
+      utcWDay: now.getUTCDay(),
+    };
+
+    try {
+      const response = await fetch(`${ZAC_URL}/Post?DateTimeUTC`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonDateTime),
+      });
+
+      if (response.ok) {
+        setUpdateSuccess(true);
+      } else {
+        setUpdateSuccess(false);
+      }
+    } catch (error) {
+      setUpdateSuccess(false);
+      Alert.alert("Error");
+    }
+  };
+
   return (
     <ScrollView style={globalStyles.screenContainer}>
-      <Header navigation={props.navigation} backIcon={true} isConnect={false}/>
+      {!updateSuccess && (
+        <Popup visible={showPopup} message={"העדכון לא הצליח!"} />
+      )}
+      {updateSuccess && <Popup visible={showPopup} message={"העדכון הצליח!"} />}
+
+      <Header navigation={props.navigation} backIcon={true} isConnect={false} />
       <View style={styles.settings}>
         <Text style={styles.zomet_settings_text_h2}>הגדרות השעון</Text>
-        <View style={styles.currentTime}>
-          <Text style={styles.zomet_settings_text}>זמן נוכחי בשעון:</Text>
-          <Text style={styles.zomet_settings_text}>זמן נוכחי: {currentTime} </Text>
+        <View style={styles.settingItem}>
+          <Text style={styles.zomet_settings_text}>
+            זמן נוכחי: {currentTime}
+          </Text>
+          <Text style={styles.zomet_settings_text}>
+            זמן נוכחי בשעון: {LocalTime}
+          </Text>
         </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onClickSetDateTimeNow()}
+          >
+            <Text style={styles.buttonText}>עדכן שעה בשעון</Text>
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.zomet_settings_text_h2}>נתוני השעון</Text>
-        <Text style={styles.zomet_settings_text}>שם: {name} </Text>
-        <Text style={styles.zomet_settings_text}>
-          גרסת תוכנה: {firmwareVersion}
-        </Text>
-        <Text style={styles.zomet_settings_text}>אזור זמן: {timeZone}</Text>
-        <Text style={styles.zomet_settings_text}>תאריך עברי: {hDateString} </Text>
-        <Text style={styles.zomet_settings_text}>זריחה במישור: {sunrise} </Text>
-        <Text style={styles.zomet_settings_text}>שקיעה במישור: {sunset}</Text>
-        {/* <Button title="קבל נתונים" onPress={fetchData} /> */}
+
+        <View style={styles.settingItem}>
+          <Text style={styles.zomet_settings_text}>שם: {name}</Text>
+
+          <Text style={styles.zomet_settings_text}>
+            גרסת תוכנה: {firmwareVersion}
+          </Text>
+
+          <Text style={styles.zomet_settings_text}>אזור זמן: {timeZone}</Text>
+
+          <Text style={styles.zomet_settings_text}>
+            תאריך עברי: {hDateString}
+          </Text>
+
+          <Text style={styles.zomet_settings_text}>
+            זריחה במישור: {sunrise}
+          </Text>
+
+          <Text style={styles.zomet_settings_text}>שקיעה במישור: {sunset}</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -93,137 +180,57 @@ export default function Settings( props: screenProps) {
 
 const styles = StyleSheet.create({
   settings: {
+    width: "100%",
+    alignItems: "center",
     marginTop: height * 0.02,
   },
-  currentTime: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  differentTimeContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    marginRight: "2%",
-    marginTop: "2%",
-    marginBottom: 8,
-  },
-  differentTime: {
-    marginLeft: "2%",
-    color: "#231dd3",
-    fontSize: 20,
+  settingItem: {
+    width: "90%",
+    marginBottom: 10,
   },
   zomet_settings_text: {
-    color:'#231dd3',
-    alignSelf:'flex-end',
-    marginRight:'2%',
-    marginTop:'2%',
-    fontSize:20, //toTo: I added this
-    marginBottom: 8, //toTo: I added this
+    flex: 1,
+    color: "#007E97",
+    fontSize: 20,
+    flexWrap: "wrap",
+    width: "100%", // Ensure text uses available width
   },
+
   zomet_settings_text_h2: {
-      color:'#231dd3',
-      alignSelf:'flex-end',
-      marginRight:'2%',
-      marginTop:'2%',
-      fontWeight:'bold',
-      fontSize:25,
-      marginBottom: 12,
+    color: "#ffa200",
+    fontWeight: "bold",
+    fontSize: 25,
+    marginBottom: 12,
   },
 
+  buttonContainer: {
+    width: "40%",
+    height: normalizeHeight(40),
+    marginTop: normalizeHeight(10),
+    backgroundColor: "#007E97",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#007E97",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+    flex: 1,
+    position: "absolute",
+    alignSelf: "center",
+  },
 });
-
-
-// import React, {useState, useEffect} from "react";
-// import { ScrollView, StyleSheet, Platform, View, Text } from "react-native";
-// import Header from "../components/Header";
-// import { globalStyles } from "../styles/global";
-// import { height } from "../styles/globalDimension";
-// // import DatePicker from "../components/DatePicker";
-// import moment from 'moment';
-
-// type screenProps = {
-//   navigation: any;
-// };
-// export default function Settings(props: screenProps) {
-//   const [currentTime, setCurrentTime] = useState(moment().format('HH:mm:ss'));
-
-//   useEffect(() => {
-//     const intervalId = setInterval(() => {
-//       setCurrentTime(moment().format('HH:mm:ss'));
-//     }, 1000); // Update every second
-
-//     return () => clearInterval(intervalId); // Clean up on unmount
-//   }, []);
-
-
-//   return (
-//     <ScrollView style={globalStyles.screenContainer}>
-//       <Header navigation={props.navigation} backIcon={true} />
-//       <View style={styles.settings} >
-//         <Text style={styles.zomet_settings_text_h2}>הגדרות השעון</Text>
-//         <View style={styles.currentTime}>
-//           <Text style={styles.zomet_settings_text}>זמן נוכחי בשעון:</Text>
-//           <Text style={styles.zomet_settings_text}>זמן נוכחי:  {currentTime} </Text>
-//         </View>
-//         <View style={styles.differentTimeContainer}>
-//           {/* <DatePicker /> */}
-//           <Text style={styles.differentTime}>זמן אחר:</Text>
-//         </View>
-//         <Text style={styles.zomet_settings_text_h2}>נתוני השעון</Text>
-//         <Text style={styles.zomet_settings_text}>שם: </Text>
-//         <Text style={styles.zomet_settings_text}>גרסת תוכנה: </Text>
-//         <Text style={styles.zomet_settings_text}>אזור זמן: </Text>
-//         <Text style={styles.zomet_settings_text}>זמן עולמי: </Text>
-//         <Text style={styles.zomet_settings_text}>תאריך עברי: </Text>
-//         <Text style={styles.zomet_settings_text}>זריחה במישור: </Text>
-//         <Text style={styles.zomet_settings_text}>שקיעה במישור: </Text>
-//         <Text style={styles.zomet_settings_text_h2}>נתוני המערכת</Text>
-//         <Text style={styles.zomet_settings_text}>אזור זמן: </Text>
-//         <Text style={styles.zomet_settings_text}>זמן מקומי: </Text>
-//       </View>
-//     </ScrollView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   settings: {
-//     marginTop: height * 0.02,
-//   },
-//   currentTime: {
-//     flexDirection: "row",
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//   },
-//   differentTimeContainer: {
-//     flexDirection: "row",
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//     marginRight:'2%',
-//     marginTop:'2%',
-//     marginBottom: 8, 
-//   },
-//   differentTime: {
-//     marginLeft: "2%",
-//     color:'#231dd3',
-//     fontSize:20, 
-//   },
-  
-//   zomet_settings_text: {
-//     color:'#231dd3',
-//     alignSelf:'flex-end',
-//     marginRight:'2%',
-//     marginTop:'2%',
-//     fontSize:20, //toTo: I added this
-//     marginBottom: 8, //toTo: I added this
-//   },
-//   zomet_settings_text_h2: {
-//       color:'#231dd3',
-//       alignSelf:'flex-end',
-//       marginRight:'2%',
-//       marginTop:'2%',
-//       fontWeight:'bold',
-//       fontSize:25,
-//       marginBottom: 12,
-//   },
-// });

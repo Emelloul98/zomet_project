@@ -1,12 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import {
-  normalize,
-  normalizeHeight,
-  height,
-} from "../styles/globalDimension";
+import { normalize, normalizeHeight, height } from "../styles/globalDimension";
 import { AntDesign } from "@expo/vector-icons";
 type navProps = {
   navigation: any;
@@ -14,32 +10,32 @@ type navProps = {
   isConnect: boolean;
 };
 export default function Header(props: navProps) {
-
   return (
     <View style={styles.header}>
       <View style={styles.header_container}>
         <View style={styles.left_icons_container}>
           {props.backIcon && (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('EditTable')}
+              onPress={() => props.navigation.navigate("EditTable")}
             >
               <AntDesign name="left" size={24} style={styles.back_icon} />
             </TouchableOpacity>
           )}
-          {!props.backIcon && (
+          {!props.backIcon && props.isConnect && (
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("Settings", {isConnectToChip: props.isConnect})}
+              onPress={() =>
+                props.navigation.navigate("Settings", {
+                  isConnectToChip: props.isConnect,
+                })
+              }
             >
               <Ionicons name="settings-outline" style={styles.settings_icon} />
             </TouchableOpacity>
-
           )}
           {!props.backIcon && (
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Info")} 
-            >
-            {/* <Ionicons name="information-circle-outline" style={styles.info_icon} /> */}
-            <Icon name="info" style={styles.info_icon} />
+            <TouchableOpacity onPress={() => props.navigation.navigate("Info")}>
+              {/* <Ionicons name="information-circle-outline" style={styles.info_icon} /> */}
+              <Icon name="info" style={styles.info_icon} />
             </TouchableOpacity>
           )}
         </View>
@@ -59,38 +55,37 @@ const styles = StyleSheet.create({
   },
   header_container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "100%",
   },
   left_icons_container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     alignItems: "center",
     alignSelf: "flex-start",
   },
   settings_icon: {
-    marginLeft: normalize(20),
-    color: "#231dd3",
+    marginRight: normalize(20),
+    color: "#ffa200",
     fontSize: normalize(26),
-    marginTop: normalizeHeight(10),
+    marginTop: normalizeHeight(20),
   },
   info_icon: {
-    marginLeft: normalize(20),
-    color: "#231dd3",
+    marginRight: normalize(20),
+    color: "#ffa200",
     fontSize: normalize(24),
-    marginTop: normalizeHeight(10),
+    marginTop: normalizeHeight(20),
   },
   back_icon: {
-    marginLeft: normalize(10),
-    color: "#231dd3",
+    marginRight: normalize(10),
+    color: "#007E97",
     fontSize: normalize(30),
-    marginTop: normalizeHeight(10),
+    marginTop: normalizeHeight(20),
   },
   zomet_logo: {
     justifyContent: "flex-end",
-    marginRight: normalize(10),
+    marginLeft: normalize(10),
     width: normalize(80),
     height: normalizeHeight(70),
   },
-  
 });

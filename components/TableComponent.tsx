@@ -79,11 +79,19 @@ const TableComponent: React.FC<TableComponentProps> = ({
     field: string,
     newValue: string | number
   ) => {
-    const updatedSchedule = localSchedules.map((schedule) =>
-      schedule.scheduleID === id ? { ...schedule, [field]: newValue } : schedule
-    );
-    setLocalSchedules(updatedSchedule);
-    setSchedule(updatedSchedule); // Update the parent state
+    const updatedSchedules = localSchedules.map((schedule) => {
+      if (schedule.scheduleID === id) {
+        if (field !== "isActive" && schedule.isActive) {
+          return { ...schedule, [field]: newValue, isActive: false };
+        } else {
+          return { ...schedule, [field]: newValue };
+        }
+      }
+      return schedule;
+    });
+
+    setLocalSchedules(updatedSchedules);
+    setSchedule(updatedSchedules); // Update the parent state
   };
 
   const batchUpdateSchedule = (id: number, newRepMode: string) => {
@@ -93,9 +101,11 @@ const TableComponent: React.FC<TableComponentProps> = ({
     const YEAR_5784 = "5784";
     const local = "localTime";
 
-    const updates: { field: string; newValue: string | number }[] = [];
+    const updates: { field: string; newValue: string | number | boolean }[] =
+      [];
 
     updates.push({ field: "repMode", newValue: newRepMode });
+    updates.push({ field: "isActive", newValue: false });
 
     switch (newRepMode) {
       case "daily":
@@ -197,9 +207,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
     <SafeAreaView>
       <View style={styles.table}>
         <View style={styles.main_header}>
-          <Button title="-" onPress={deleteSchedule} />
+          <Button title="-" onPress={deleteSchedule} color={"#007E97"} />
           <Text style={styles.header_text}>טבלת תזמונים</Text>
-          <Button title="+" onPress={addSchedule} />
+          <Button title="+" onPress={addSchedule} color={"#007E97"} />
         </View>
         <View>
           <View style={styles.row}>
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   main_header: {
-    flexDirection: "row", //@@@
+    flexDirection: "row-reverse", //@@@
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
@@ -243,7 +253,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   row: {
-    flexDirection: "row", //@@@
+    flexDirection: "row-reverse", //@@@
     borderBottomWidth: 1,
     borderColor: "#ddd",
   },
@@ -315,4 +325,3 @@ const styles = StyleSheet.create({
 });
 
 export default TableComponent;
-

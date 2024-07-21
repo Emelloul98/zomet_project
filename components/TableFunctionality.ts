@@ -37,7 +37,8 @@ function createJson(schedule: Schedule[], swID: number) {
 export async function sendCurrentData(
   schedule: Schedule[],
   setSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>,
-  swID: number
+  swID: number,
+  setConnectToChip: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   try {
     schedule.forEach((sched) => {
@@ -66,15 +67,11 @@ export async function sendCurrentData(
       schedule.forEach((sched) => {
         sched.isActive = false;
       });
-      alert("Failed to send data.");
+      setConnectToChip(false);
     }
     setSchedule(schedule);
   } catch (error: unknown) {
-    if ((error as { name: string }).name === "AbortError") {
-      alert("Request timed out.");
-    } else {
-      alert(error);
-    }
+    setConnectToChip(false);
   }
 }
 
@@ -85,10 +82,11 @@ interface ResponseData {
 }
 export async function getCurrentData(
   setSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>,
-  swID: number
+  swID: number,
+  setConnectToChip: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 1000); // Set timeout to 1 second
+  const timeoutId = setTimeout(() => controller.abort(), 3000); // Set timeout to 1 second
 
   try {
     const response = await fetch(
@@ -103,17 +101,44 @@ export async function getCurrentData(
 
     if (response.ok) {
       const data: ResponseData = await response.json();
-      const scheduleArray = Object.values(data.Schedules);
+      const scheduleArray: Schedule[] = Object.values(data.Schedules).map(
+        (schedule: any) => ({
+          switchID: Number(schedule.switchID),
+          scheduleID: Number(schedule.scheduleID),
+          isActive: schedule.isActive === "true" || schedule.isActive === true,
+          repMode: String(schedule.repMode),
+          timeModeON: String(schedule.timeModeON),
+          dayON: String(schedule.dayON),
+          monON: String(schedule.monON),
+          yearON: String(schedule.yearON),
+          hourON: String(schedule.hourON),
+          minON: String(schedule.minON),
+          timeModeOFF: String(schedule.timeModeOFF),
+          dayOFF: String(schedule.dayOFF),
+          monOFF: String(schedule.monOFF),
+          yearOFF: String(schedule.yearOFF),
+          hourOFF: String(schedule.hourOFF),
+          minOFF: String(schedule.minOFF),
+        })
+      );
+
       setSchedule(scheduleArray);
     } else {
-      alert(`Error: ${response.status} - ${response.statusText}`);
+      setConnectToChip(false);
     }
   } catch (error: unknown) {
-    alert(error);
+    setConnectToChip(false);
   }
 }
 
-export async function setSwitchMode(switchID: number, mode: string) {
+export async function setSwitchMode(
+  switchID: number,
+  mode: string,
+  setConnectToChip: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3000); // Set timeout to 1 second
+
   try {
     const response = await fetch(
       `${ZAC_URL}/Set?OperationMode&ID=${switchID + 1}&Mode=${mode}`,
@@ -125,30 +150,44 @@ export async function setSwitchMode(switchID: number, mode: string) {
         // timeout: 3000, // Note: fetch does not support timeout natively
       }
     );
+
+    clearTimeout(timeoutId);
     if (response.ok) {
       return;
     } else {
-      alert("Failed to setSwitchMode.");
+      setConnectToChip(false);
     }
   } catch (error) {
-    alert("Failed setSwitchMode.$");
-    alert("Error: " + error);
-    console.error("Error:", error);
+    setConnectToChip(false);
   }
 }
 
-export async function setLightMode(switchID: number, state: string) {
-  const response = await fetch(
-    `${ZAC_URL}/Set?Switch&ID=${switchID + 1}&State=${state}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+export async function setLightMode(
+  switchID: number,
+  state: string,
+  setConnectToChip: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3000); // Set timeout to 1 second
+  try {
+    const response = await fetch(
+      `${ZAC_URL}/Set?Switch&ID=${switchID + 1}&State=${state}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      return;
+    } else {
+      setConnectToChip(false);
     }
-  );
-  if (response.ok) {
-    return;
+  } catch (error) {
+    setConnectToChip(false);
   }
 }
-
