@@ -1,3 +1,7 @@
+/*
+  DisplaySchedules component
+  This component is responsible for displaying the schedules in a table format.
+*/
 import React, { useState } from "react";
 import {
   View,
@@ -19,7 +23,6 @@ import Modal from "react-native-modal";
 import { Picker } from "@react-native-picker/picker";
 import { Schedule } from "./TableComponent";
 import Icon from "react-native-vector-icons/FontAwesome";
-import CustomPicker from "../components/CustomPicker";
 
 interface DisplaySchedulesProps {
   schedules: Schedule[];

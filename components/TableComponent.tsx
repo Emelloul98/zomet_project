@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, Button, StyleSheet } from "react-native";
 import DisplaySchedules from "./DisplaySchedules";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+// Interface definition for the Schedule object
 export interface Schedule {
   switchID: number;
   scheduleID: number;
@@ -28,11 +29,17 @@ interface TableComponentProps {
   swID: number;
 }
 
+/**
+ * TableComponent is a React functional component that manages and displays a table of schedules.
+ * Users can add, delete, and update schedules. It synchronizes its local state with a parent state.
+ */
+
 const TableComponent: React.FC<TableComponentProps> = ({
   schedules,
   setSchedule,
   swID,
 }) => {
+  // Local state for schedules
   const [localSchedules, setLocalSchedules] = useState<Schedule[]>(schedules);
 
   useEffect(() => {
@@ -40,6 +47,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
     setSchedule(schedules);
   }, [schedules]);
 
+  // Default values for a new schedule
   const default_values: Omit<Schedule, "scheduleID"> = {
     switchID: swID,
     isActive: false,
@@ -58,6 +66,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
     minOFF: "00",
   };
 
+  // Function to add a new schedule
   const addSchedule = () => {
     const newSchedule: Schedule = {
       ...default_values,
@@ -68,12 +77,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
     setSchedule(updatedSchedules); // Update the parent state
   };
 
+  // Function to delete the last schedule
   const deleteSchedule = () => {
     const updatedSchedule = localSchedules.slice(0, -1);
     setLocalSchedules(updatedSchedule);
     setSchedule(updatedSchedule); // Update the parent state
   };
 
+  // Function to update a specific field in a specific schedule
   const updateSchedule = (
     id: number,
     field: string,
@@ -94,6 +105,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
     setSchedule(updatedSchedules); // Update the parent state
   };
 
+  //This function updates the scheduling configuration for a given schedule ID
+  // based on the new repetition mode (newRepMode).
+  //It sets various fields to default values according to the specified repetition mode.
   const batchUpdateSchedule = (id: number, newRepMode: string) => {
     const ZERO = "0";
     const DOUBLE_ZERO = "00";
@@ -206,12 +220,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
   return (
     <SafeAreaView>
       <View style={styles.table}>
+        {/* Table Header with Add and Delete buttons */}
         <View style={styles.main_header}>
           <Button title="-" onPress={deleteSchedule} color={"#007E97"} />
           <Text style={styles.header_text}>טבלת תזמונים</Text>
           <Button title="+" onPress={addSchedule} color={"#007E97"} />
         </View>
         <View>
+          {/* Table Column Headers */}
           <View style={styles.row}>
             <View style={styles.cell_icon}>
               <Icon name="arrow-down" size={12} color="black" />
@@ -222,6 +238,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             <Text style={styles.cell}>חזרות</Text>
             <Text style={styles.cell_id}>#</Text>
           </View>
+          {/* Table Data Rows */}
           <View style={styles.data_rows}>
             <DisplaySchedules
               schedules={localSchedules}
@@ -235,6 +252,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 };
 
+/**
+ * Styles for the scheduling table component.
+ */
 const styles = StyleSheet.create({
   table: {
     margin: 5,

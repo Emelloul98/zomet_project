@@ -24,6 +24,10 @@ type screenProps = {
   navigation: any;
 };
 
+/*The Settings component is a React Native screen used to display and update settings related to a clock device.
+ It shows the current time, clock settings, and allows the user to update the clock's time.
+  The component fetches data from a server and handles time updates with a popup notification for success or failure.
+*/
 export default function Settings(props: screenProps) {
   const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
   const [name, setName] = useState("");
@@ -37,6 +41,7 @@ export default function Settings(props: screenProps) {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const isInitialRender = useRef(true);
 
+  // Effect to handle popup visibility on updateSuccess change
   useEffect(() => {
     if (isInitialRender.current) {
       isInitialRender.current = false;
@@ -51,6 +56,7 @@ export default function Settings(props: screenProps) {
   const route = useRoute();
   const isConnectToChip = route.params as { isConnectToChip: boolean };
 
+  // Effect to handle initial setup and time updates
   useEffect(() => {
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(true);
@@ -66,6 +72,7 @@ export default function Settings(props: screenProps) {
     return () => clearInterval(intervalId); // Clean up on unmount
   }, []);
 
+  // Function to fetch data from the server
   const fetchData = async () => {
     try {
       const response = await fetch(`${ZAC_URL}/Get?Status`, {
@@ -92,6 +99,7 @@ export default function Settings(props: screenProps) {
     }
   };
 
+  // Function to set the date and time to the current UTC time
   const onClickSetDateTimeNow = async () => {
     const now = new Date();
     const jsonDateTime = {

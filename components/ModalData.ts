@@ -1,3 +1,4 @@
+// This file contains the data for the modals in the app.
 export const week_days = [
   { label: "א", value: "1" },
   { label: "ב", value: "2" },

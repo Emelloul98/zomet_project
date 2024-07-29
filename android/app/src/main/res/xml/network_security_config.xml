@@ -4,3 +4,7 @@
         <domain includeSubdomains="true">192.168.4.1</domain>
     </domain-config>
 </network-security-config>
+
+
+
+

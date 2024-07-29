@@ -14,6 +14,7 @@ type ScreenProps = {
 };
 
 export default function Info(props: ScreenProps) {
+  // explaination text for each info item
   const textData = [
     "שלום טכנאי יקר!\nברוך הבא לאפליקציית שעון אסטרונומי\nלפניך דף האפליקציה במצב לא מחובר לשעון:",
     "בשלב זה מוצגת לפניך אופציית עריכת טבלה בלבד\n תוכל להוסיף ולהסיר שורות מהטבלה באמצעות הכפתורים:",
@@ -60,8 +61,10 @@ export default function Info(props: ScreenProps) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header navigation={props.navigation} backIcon={true} isConnect={false} />
+      {/* Loop through the infoData array and display each item */}
       {infoData.map((item) => (
         <View key={item.id} style={styles.infoItem}>
+          {/* Display image and text */}
           <Image
             source={item.image}
             style={styles.image}

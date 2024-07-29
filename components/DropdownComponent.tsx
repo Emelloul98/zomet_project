@@ -1,3 +1,4 @@
+// A component that renders a dropdown component with a list of switches to select from.
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -28,12 +29,15 @@ const DropdownComponent: React.FC<DropdownComponentProps> = ({
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         itemTextStyle={styles.itemTextStyle}
+        // The data prop is an array of objects with a label and value field.
         data={data}
         labelField="label"
         valueField="value"
+        // The placeholder prop is the current value of the dropdown.
         placeholder={currentValue}
         value={value}
         onChange={(item) => {
+          // When the value of the dropdown changes, the onValueChange prop is called with the new value.
           setValue(item.value);
           onValueChange(item.value);
         }}

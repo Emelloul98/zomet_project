@@ -1,3 +1,4 @@
+// header component that contains the logo, the settings and info icons.
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +15,7 @@ export default function Header(props: navProps) {
     <View style={styles.header}>
       <View style={styles.header_container}>
         <View style={styles.left_icons_container}>
+          {/* if backIcon is true, the back icon will be displayed, otherwise the settings and info icons will be displayed. */}
           {props.backIcon && (
             <TouchableOpacity
               onPress={() => props.navigation.navigate("EditTable")}
@@ -21,6 +23,7 @@ export default function Header(props: navProps) {
               <AntDesign name="left" size={24} style={styles.back_icon} />
             </TouchableOpacity>
           )}
+          {/* if the user is connected to the chip, the settings icon will be displayed. */}
           {!props.backIcon && props.isConnect && (
             <TouchableOpacity
               onPress={() =>
@@ -32,13 +35,14 @@ export default function Header(props: navProps) {
               <Ionicons name="settings-outline" style={styles.settings_icon} />
             </TouchableOpacity>
           )}
+          {/* if the user is not connected to the chip, the info icon will be displayed. */}
           {!props.backIcon && (
             <TouchableOpacity onPress={() => props.navigation.navigate("Info")}>
-              {/* <Ionicons name="information-circle-outline" style={styles.info_icon} /> */}
               <Icon name="info" style={styles.info_icon} />
             </TouchableOpacity>
           )}
         </View>
+        {/* zomet logo */}
         <Image
           style={styles.zomet_logo}
           source={require("../assets/images/zomet_icon.png")}
