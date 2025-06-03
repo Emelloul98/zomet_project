@@ -38,11 +38,9 @@ Users can send commands remotely to the ESP32 device to control various function
 
 ## Screenshots
 
-![Home Screen](https://github.com/yourusername/zomet-mobile-app/blob/main/images/home-screen.png)
-*Main interface showing device status and controls.*
+<img src="https://raw.githubusercontent.com/Emelloul98/zomet_project/1674d505e62c04fe85305a6bba3443a62af89b23/ESP32%20control.jpg" alt="Device Control" width="300"/>
+<p><em>Remote control interface sending commands to ESP32.</em></p>
 
-![Device Control](https://raw.githubusercontent.com/Emelloul98/zomet_project/1674d505e62c04fe85305a6bba3443a62af89b23/ESP32%20control.jpg)
-*Remote control interface sending commands to ESP32.*
 
 
 
