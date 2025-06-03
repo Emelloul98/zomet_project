@@ -1,36 +1,50 @@
-# Welcome to your Expo app 👋
+# Zomet Institute Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This project is a cross-platform mobile application developed to enable seamless interaction between users and an ESP32 microcontroller device. The app provides remote control capabilities and real-time data exchange to support the technological initiatives of the Zomet Institute. It runs on both Android and iOS platforms and offers a user-friendly interface combined with reliable connectivity.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Technologies Used
 
-2. Start the app
+* **React Native**: Core framework for cross-platform mobile development.
+* **Expo**: Development platform and toolchain for building and deploying the app.
+* **ESP32 Microcontroller**: Embedded device enabling real-time bidirectional communication.
+* **HTTP Communication (GET/POST)**: For sending and receiving data between the app and backend/microcontroller.
+* **JavaScript / TypeScript** (if applicable): Programming languages used for app logic and UI.
 
-   ```bash
-    npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 1. Cross-Platform Support
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+The application delivers consistent user experience on both **Android** and **iOS** devices, leveraging React Native’s unified codebase.
 
-## Get a fresh project
+### 2. Real-Time Device Communication
 
-When you're ready, run:
+Seamlessly integrates with the **ESP32 microcontroller**, enabling remote control and real-time data exchange via HTTP requests.
 
-```bash
-npm run reset-project
-```
+### 3. Intuitive User Interface
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Designed with usability in mind, the app offers a clean and responsive UI that simplifies interaction with the device and system status monitoring.
+
+### 4. Remote Control Capabilities
+
+Users can send commands remotely to the ESP32 device to control various functions, ensuring efficient and flexible operation.
+
+---
+
+## Screenshots
+
+![Home Screen](https://github.com/yourusername/zomet-mobile-app/blob/main/images/home-screen.png)
+*Main interface showing device status and controls.*
+
+![Device Control](https://github.com/yourusername/zomet-mobile-app/blob/main/images/device-control.png)
+*Remote control interface sending commands to ESP32.*
+
+
+
+
+
